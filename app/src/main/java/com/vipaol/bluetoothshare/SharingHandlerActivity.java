@@ -1,13 +1,12 @@
 package com.vipaol.bluetoothshare;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-public class SharingHandlerActivity extends AppCompatActivity {
+public class SharingHandlerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class SharingHandlerActivity extends AppCompatActivity {
         Log.d("Received file type", type);
 
         if (type != null && action.equals(Intent.ACTION_SEND)) {
-            sendFile((Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM));
+            sendFile(intent.getParcelableExtra(Intent.EXTRA_STREAM));
         }
         finish();
     }
@@ -30,7 +29,7 @@ public class SharingHandlerActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setPackage("com.android.bluetooth");
             i.putExtra(Intent.EXTRA_STREAM, fileUri);
-            // set false mime type to be able to send even restricted types, e.g. application/java-archive
+            // set fake mime type to be able to send even restricted types, e.g. application/java-archive
             i.setType("image/jpeg");
             startActivity(i);
         }
